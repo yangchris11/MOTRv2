@@ -1,5 +1,76 @@
 # MOTRv2: Bootstrapping End-to-End Multi-Object Tracking by Pretrained Object Detectors
 
+
+
+
+
+
+## NEW NOTE 
+
+### Dec 4
+
+
+* Install pytorch using conda
+
+    ```bash
+    conda create -n motrv2 python=3.7
+    conda activate motrv2
+    conda install pytorch=1.8.1 torchvision=0.9.1 cudatoolkit=10.1 -c pytorch
+    
+    pip3 install -r requirements.txt
+    
+    cd ./models/ops
+    sh ./make.sh
+    ```
+
+If the cuda version is misamtch, you will see
+
+```
+running build
+running build_py
+running build_ext
+building 'MultiScaleDeformableAttention' extension
+Emitting ninja build file /media/sda1/MOTRv2/models/ops/build/temp.linux-x86_64-cpython-37/build.ninja...
+Compiling objects...
+Allowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)
+[1/1] /usr/bin/nvcc --generate-dependencies-with-compile --dependency-output /media/sda1/MOTRv2/models/ops/build/temp.linux-x86_64-cpython-37/media/sda1/MOTRv2/models/ops/src/cuda/ms_deform_attn_cuda.o.d -DWITH_CUDA -I/media/sda1/MOTRv2/models/ops/src -I/home/cycyang/anaconda3/envs/motrv2/lib/python3.7/site-packages/torch/include -I/home/cycyang/anaconda3/envs/motrv2/lib/python3.7/site-packages/torch/include/torch/csrc/api/include -I/home/cycyang/anaconda3/envs/motrv2/lib/python3.7/site-packages/torch/include/TH -I/home/cycyang/anaconda3/envs/motrv2/lib/python3.7/site-packages/torch/include/THC -I/home/cycyang/anaconda3/envs/motrv2/include/python3.7m -c -c /media/sda1/MOTRv2/models/ops/src/cuda/ms_deform_attn_cuda.cu -o /media/sda1/MOTRv2/models/ops/build/temp.linux-x86_64-cpython-37/media/sda1/MOTRv2/models/ops/src/cuda/ms_deform_attn_cuda.o -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr --compiler-options ''"'"'-fPIC'"'"'' -DCUDA_HAS_FP16=1 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ -DTORCH_API_INCLUDE_EXTENSION_H '-DPYBIND11_COMPILER_TYPE="_gcc"' '-DPYBIND11_STDLIB="_libstdcpp"' '-DPYBIND11_BUILD_ABI="_cxxabi1011"' -DTORCH_EXTENSION_NAME=MultiScaleDeformableAttention -D_GLIBCXX_USE_CXX11_ABI=0 -gencode=arch=compute_70,code=compute_70 -gencode=arch=compute_70,code=sm_70 -std=c++14
+FAILED: /media/sda1/MOTRv2/models/ops/build/temp.linux-x86_64-cpython-37/media/sda1/MOTRv2/models/ops/src/cuda/ms_deform_attn_cuda.o 
+/usr/bin/nvcc --generate-dependencies-with-compile --dependency-output /media/sda1/MOTRv2/models/ops/build/temp.linux-x86_64-cpython-37/media/sda1/MOTRv2/models/ops/src/cuda/ms_deform_attn_cuda.o.d -DWITH_CUDA -I/media/sda1/MOTRv2/models/ops/src -I/home/cycyang/anaconda3/envs/motrv2/lib/python3.7/site-packages/torch/include -I/home/cycyang/anaconda3/envs/motrv2/lib/python3.7/site-packages/torch/include/torch/csrc/api/include -I/home/cycyang/anaconda3/envs/motrv2/lib/python3.7/site-packages/torch/include/TH -I/home/cycyang/anaconda3/envs/motrv2/lib/python3.7/site-packages/torch/include/THC -I/home/cycyang/anaconda3/envs/motrv2/include/python3.7m -c -c /media/sda1/MOTRv2/models/ops/src/cuda/ms_deform_attn_cuda.cu -o /media/sda1/MOTRv2/models/ops/build/temp.linux-x86_64-cpython-37/media/sda1/MOTRv2/models/ops/src/cuda/ms_deform_attn_cuda.o -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr --compiler-options ''"'"'-fPIC'"'"'' -DCUDA_HAS_FP16=1 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ -DTORCH_API_INCLUDE_EXTENSION_H '-DPYBIND11_COMPILER_TYPE="_gcc"' '-DPYBIND11_STDLIB="_libstdcpp"' '-DPYBIND11_BUILD_ABI="_cxxabi1011"' -DTORCH_EXTENSION_NAME=MultiScaleDeformableAttention -D_GLIBCXX_USE_CXX11_ABI=0 -gencode=arch=compute_70,code=compute_70 -gencode=arch=compute_70,code=sm_70 -std=c++14
+nvcc fatal   : Unknown option '-generate-dependencies-with-compile'
+ninja: build stopped: subcommand failed.
+```
+
+change the cudatoolkit (`10.2`->`10.1` to coreesponding cuda verseion (check with ```ncvv --version```) 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## ========== Original README ==========
+
 [![arXiv](https://img.shields.io/badge/arXiv-2211.09791-COLOR.svg)](https://arxiv.org/abs/2211.09791)
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/motrv2-bootstrapping-end-to-end-multi-object/multi-object-tracking-on-dancetrack)](https://paperswithcode.com/sota/multi-object-tracking-on-dancetrack?p=motrv2-bootstrapping-end-to-end-multi-object)
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/motrv2-bootstrapping-end-to-end-multi-object/multiple-object-tracking-on-bdd100k)](https://paperswithcode.com/sota/multiple-object-tracking-on-bdd100k?p=motrv2-bootstrapping-end-to-end-multi-object)
